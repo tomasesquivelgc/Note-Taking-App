@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { NewNote } from './components/NewNote';
 
 function App() {
 
@@ -7,7 +8,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Button>Hello World</Button>} />
-        <Route path="/new" element={<h1>This is the new section</h1>} />
+        <Route path="/new" element={<NewNote />} />
         <Route path="/:id">
           <Route index element={<h1>Show</h1>} />
           <Route path="edit" element={<h1>Edit</h1>} />
