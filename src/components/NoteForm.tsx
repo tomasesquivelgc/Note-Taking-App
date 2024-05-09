@@ -14,6 +14,20 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLInputElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (event: React.ChangeEvent<{}>, value: string) => {
+    setInputValue(value);
+  };
+
+  const handleCreateTag = () => {
+    if (inputValue.trim() !== '') {
+      const newTag = { id: uuidv4(), label: inputValue.trim() };
+      onAddTag(newTag);
+      setSelectedTags(prev => [...prev, newTag]);
+      setInputValue(''); // Clear the input value after creating the tag
+    }
+  };
 
   const generateTagWithId = (tag: string | Tag): Tag => {
     if (typeof tag === 'string') {
@@ -56,20 +70,22 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
             multiple
             freeSolo
             id="note-tags"
+            onInputChange={handleInputChange}
             options={availableTags.map(tag => {
               return {label: tag.label, id: tag.id}
             })}
             onChange={(_, value) => {
               setSelectedTags(value.map(generateTagWithId))
             }}
-            onInputChange={(_, value) => {
-              const newTag = {id: uuidv4(), label: value};
-              onAddTag(newTag);
-              setSelectedTags(prev => [...prev, newTag])
-            }}
+
             renderInput={(params) => (
               <TextField
                 {...params}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    handleCreateTag();
+                  }
+                }}
                 label="Category"
                 variant="outlined"
                 margin="normal"
