@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
 
@@ -11,12 +11,12 @@ type NoteFormProps = {
 };
 
 export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): JSX.Element {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const markdownRef = useRef<HTMLInputElement>(null);
+  const [titleValue, setTitleValue] = useState('');
+  const [markdownValue, setMarkdownValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (event: React.ChangeEvent<{}>, value: string) => {
+  const handleInputChange = (event, value: string) => {
     setInputValue(value);
   };
 
@@ -45,8 +45,8 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     onSubmit({
-      title: titleRef.current!.value,
-      markdown: markdownRef.current!.value,
+      title: titleValue,
+      markdown: markdownValue,
       tags: [],
     });
     console.log(selectedTags);
@@ -57,7 +57,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
-            ref={titleRef}
+            onChange={(event) => setTitleValue(event.target.value)}
             label="Title"
             variant="outlined"
             fullWidth
@@ -96,7 +96,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
         </Grid>
         <Grid item xs={12}>
           <TextField
-            ref={markdownRef}
+            onChange={(event) => setMarkdownValue(event.target.value)}
             required
             label="Content"
             variant="outlined"
