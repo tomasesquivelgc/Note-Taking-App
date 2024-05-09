@@ -2,8 +2,22 @@ import Button from '@mui/material/Button';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { NewNote } from './components/NewNote';
 
-function App() {
+export type Note = {
+  id: string
+} & NoteData
 
+export type NoteData = {
+  title: string,
+  markdown: string,
+  tags: Tag[]
+}
+
+export type Tag = {
+  id: string,
+  label: string
+}
+
+function App() {
   return (
     <>
       <Routes>

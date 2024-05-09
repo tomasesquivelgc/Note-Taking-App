@@ -1,14 +1,24 @@
-import { useState, FormEvent } from 'react';
+import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import { FormEvent, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, TextField, Button, Grid, Autocomplete } from '@mui/material';
+import { NoteData, Tag } from '../App';
 
-export function NoteForm(): JSX.Element {
-  const [tags, setTags] = useState<string[]>([]);
+type NoteFormProps = {
+  onSubmit: (data: NoteData) => void;
+};
+
+export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
+  const titleRef = useRef<HTMLInputElement>(null);
+  const markdownRef = useRef<HTMLInputElement>(null);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log('Form submitted');
-    console.log('Tags:', tags);
+    onSubmit({
+      title: titleRef.current!.value,
+      markdown: markdownRef.current!.value,
+      tags: [],
+    });
   };
 
   return (
@@ -16,6 +26,7 @@ export function NoteForm(): JSX.Element {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
+            ref={titleRef}
             label="Title"
             variant="outlined"
             fullWidth
@@ -28,8 +39,14 @@ export function NoteForm(): JSX.Element {
             multiple
             freeSolo
             id="note-tags"
-            options={["Personal", "Work", "Others"]}
-            onChange={(event, value) => setTags(value)}
+            options={selectedTags.map(tag => {
+              return {label: tag.label, value: tag.id};
+            })}
+            onChange={(event, tags) => {
+              setSelectedTags((tags as { label: string; value: string }[]).map(tag => {
+                return {label: tag.label, id: tag.value}
+              }))
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -43,6 +60,7 @@ export function NoteForm(): JSX.Element {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            ref={markdownRef}
             required
             label="Content"
             variant="outlined"
@@ -52,7 +70,7 @@ export function NoteForm(): JSX.Element {
             fullWidth  // Ensure the TextField takes the full width
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} container justifyContent={'flex-end'}>
           <Button
           type="submit"
           variant="contained"
