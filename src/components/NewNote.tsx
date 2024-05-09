@@ -1,15 +1,17 @@
 import { NoteForm } from "./NoteForm"
-import { NoteData } from "../App";
+import { NoteData, Tag } from "../App";
 
 type newNoteProps = {
   onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
 };
 
-export function NewNote({onSubmit}: newNoteProps) {
+export function NewNote({onSubmit, onAddTag, availableTags}: newNoteProps) {
   return (
     <div>
       <h1>New Note</h1>
-      <NoteForm onSubmit={onSubmit} />
+      <NoteForm onSubmit={onSubmit} onAddTag={onAddTag} availableTags={availableTags} />
     </div>
   )
 }

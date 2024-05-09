@@ -6,9 +6,11 @@ import { NoteData, Tag } from '../App';
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
 };
 
-export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
+export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): JSX.Element {
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLInputElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -28,7 +30,11 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    
+    onSubmit({
+      title: titleRef.current!.value,
+      markdown: markdownRef.current!.value,
+      tags: [],
+    });
     console.log(selectedTags);
   };
 
@@ -50,9 +56,16 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
             multiple
             freeSolo
             id="note-tags"
-            options={selectedTags}
+            options={availableTags.map(tag => {
+              return {label: tag.label, id: tag.id}
+            })}
             onChange={(_, value) => {
               setSelectedTags(value.map(generateTagWithId))
+            }}
+            onInputChange={(_, value) => {
+              const newTag = {id: uuidv4(), label: value};
+              onAddTag(newTag);
+              setSelectedTags(prev => [...prev, newTag])
             }}
             renderInput={(params) => (
               <TextField
