@@ -14,11 +14,8 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    onSubmit({
-      title: titleRef.current!.value,
-      markdown: markdownRef.current!.value,
-      tags: [],
-    });
+    
+    console.log(selectedTags);
   };
 
   return (
@@ -39,14 +36,8 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
             multiple
             freeSolo
             id="note-tags"
-            options={selectedTags.map(tag => {
-              return {label: tag.label, value: tag.id};
-            })}
-            onChange={(event, tags) => {
-              setSelectedTags((tags as { label: string; value: string }[]).map(tag => {
-                return {label: tag.label, id: tag.value}
-              }))
-            }}
+            options={selectedTags}
+            onChange={(_, value) => {setSelectedTags(value as Tag[])}}
             renderInput={(params) => (
               <TextField
                 {...params}
