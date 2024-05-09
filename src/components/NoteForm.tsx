@@ -14,7 +14,11 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    
+    onSubmit({
+      title: titleRef.current!.value,
+      markdown: markdownRef.current!.value,
+      tags: [],
+    });
     console.log(selectedTags);
   };
 
