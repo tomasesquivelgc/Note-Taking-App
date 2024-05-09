@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
 import { FormEvent, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,13 +13,22 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
   const markdownRef = useRef<HTMLInputElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
+  const generateTagWithId = (tag: string | Tag): Tag => {
+    if (typeof tag === 'string') {
+      // Generate unique ID for new tag
+      return {
+        id: uuidv4(),
+        label: tag
+      };
+    } else {
+      // Return existing tag as is
+      return tag;
+    }
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    onSubmit({
-      title: titleRef.current!.value,
-      markdown: markdownRef.current!.value,
-      tags: [],
-    });
+    
     console.log(selectedTags);
   };
 
@@ -41,7 +51,9 @@ export function NoteForm({ onSubmit }: NoteFormProps): JSX.Element {
             freeSolo
             id="note-tags"
             options={selectedTags}
-            onChange={(_, value) => {setSelectedTags(value as Tag[])}}
+            onChange={(_, value) => {
+              setSelectedTags(value.map(generateTagWithId))
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
