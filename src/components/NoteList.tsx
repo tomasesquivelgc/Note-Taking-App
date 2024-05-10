@@ -1,4 +1,4 @@
-import { Grid, Stack, Button, Container } from "@mui/material";
+import { Grid, Stack, Button, Container, Box, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export function NoteList() {
@@ -14,13 +14,27 @@ export function NoteList() {
               <Button variant="contained">
                 Create Note
               </Button>
-            </Link>
-            
+            </Link> 
             <Button variant="outlined">
               Edit Tags
             </Button>
           </Stack>
         </Grid>
+        <Box component="form" width="100%">
+          <Grid item xs={6}>
+            <TextField
+              label="Search"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+            />
+
+          </Grid>
+          <Grid item xs={6}>
+
+
+          </Grid>
+        </Box>
       </Grid>
     </Container>
   );
