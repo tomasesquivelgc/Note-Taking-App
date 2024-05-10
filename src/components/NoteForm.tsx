@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
 
 type NoteFormProps = {
@@ -15,6 +15,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
   const [markdownValue, setMarkdownValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (event, value: string) => {
     setInputValue(value);
@@ -47,9 +48,9 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
     onSubmit({
       title: titleValue,
       markdown: markdownValue,
-      tags: [],
+      tags: selectedTags,
     });
-    console.log(selectedTags);
+    navigate('..');
   };
 
   return (
