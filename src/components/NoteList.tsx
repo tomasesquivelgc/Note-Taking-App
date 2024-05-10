@@ -9,14 +9,14 @@ type NoteListProps = {
 
 export function NoteList({ availableTags }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [titleValue, setTitleValue] = useState('');
   return (
-    <Container>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={6} md={8}>
+      <Grid container alignItems="center" width={"100%"} p={2}>
+        <Grid item xs={5}>
           <h1>Notes</h1>
         </Grid>
-        <Grid item xs={6} md={4}>
-          <Stack direction="row" spacing={2} justifyContent={"center"}>
+        <Grid item xs={7}>
+          <Stack direction="row" spacing={2} justifyContent={"right"}>
             <Link to="/new">
               <Button variant="contained">
                 Create Note
@@ -27,9 +27,10 @@ export function NoteList({ availableTags }: NoteListProps) {
             </Button>
           </Stack>
         </Grid>
-        <Box component="form" width="100%" display="flex" gap={2}>
+        <Box component="form" width="100%" display="flex" gap={2} justifyContent={"center"} justifySelf={"center"}>
           <Grid item xs={6}>
             <TextField
+              onChange={(event) => setTitleValue(event.target.value)}
               label="Search"
               variant="outlined"
               fullWidth
@@ -59,6 +60,5 @@ export function NoteList({ availableTags }: NoteListProps) {
           </Grid>
         </Box>
       </Grid>
-    </Container>
   );
 }
