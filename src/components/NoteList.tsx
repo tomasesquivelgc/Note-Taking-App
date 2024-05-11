@@ -1,15 +1,29 @@
 import { Grid, Stack, Button, Container, Box, TextField, Autocomplete } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Tag } from "../App";
+import { useState, useMemo } from "react";
+import { Tag, Note } from "../App";
 
-type NoteListProps = {
-  availableTags: Tag[]
+type SimplifiedNote = {
+  tags: Tag[],
+  title: string,
+  id: string
 }
 
-export function NoteList({ availableTags }: NoteListProps) {
+type NoteListProps = {
+  availableTags: Tag[],
+  notes: SimplifiedNote[]
+}
+
+export function NoteList({ availableTags, notes }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [titleValue, setTitleValue] = useState('');
+
+  const filteredNotes = useMemo(() => {
+    return notes.filter(note =>{
+      return (titleValue === "" || note.title.toLowerCase().includes(titleValue.toLowerCase())) && (selectedTags.length === 0 || selectedTags.every(tag => note.tags.some(noteTag => noteTag.id === tag.id)))
+    })
+  }, [notes, titleValue, selectedTags])
+
   return (
       <Grid container alignItems="center" width={"100%"} p={2}>
         <Grid item xs={5}>
@@ -59,6 +73,26 @@ export function NoteList({ availableTags }: NoteListProps) {
           />
           </Grid>
         </Box>
+        <Grid container width={"100%"} gap={0}>
+          {filteredNotes.map(note => {
+            return <NoteCard key={note.id} id={note.id} title={note.title} tags={note.tags} />
+          })}
+        </Grid>
       </Grid>
   );
+}
+
+function NoteCard({ id, title, tags }: SimplifiedNote) {
+  return (
+    <Grid item xs={6} md={4}>
+      <Container>
+        <h2>{title}</h2>
+        <ul>
+          {tags.map(tag => {
+            return <li key={tag.id}>{tag.label}</li>
+          })}
+        </ul>
+      </Container>
+    </Grid>
+  )
 }
