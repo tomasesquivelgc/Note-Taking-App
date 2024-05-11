@@ -21,23 +21,14 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
     setInputValue(value);
   };
 
-  const handleCreateTag = () => {
-    if (inputValue.trim() !== '') {
-      const newTag = { id: uuidv4(), label: inputValue.trim() };
-      onAddTag(newTag);
-      setSelectedTags(prev => [...prev, newTag]);
-      setInputValue(''); // Clear the input value after creating the tag
-    }
-  };
-
   const generateTagWithId = (tag: string | Tag): Tag => {
-    if (typeof tag === 'string') {
+    if (typeof tag === 'string'){
       // Generate unique ID for new tag
-      return {
-        id: uuidv4(),
-        label: tag
-      };
-    } else {
+      const newTag = { id: uuidv4(), label: tag.trim() };
+      onAddTag(newTag);
+      setInputValue(''); // Clear the input value after creating the tag
+      return newTag;
+    } else{
       // Return existing tag as is
       return tag;
     }
@@ -82,11 +73,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
             renderInput={(params) => (
               <TextField
                 {...params}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    handleCreateTag();
-                  }
-                }}
                 label="Category"
                 variant="outlined"
                 margin="normal"
