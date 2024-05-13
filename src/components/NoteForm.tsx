@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
 
 type NoteFormProps = {
@@ -14,29 +14,21 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
   const [titleValue, setTitleValue] = useState('');
   const [markdownValue, setMarkdownValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-  const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (event, value: string) => {
-    setInputValue(value);
-  };
-
-  const handleCreateTag = () => {
-    if (inputValue.trim() !== '') {
-      const newTag = { id: uuidv4(), label: inputValue.trim() };
-      onAddTag(newTag);
-      setSelectedTags(prev => [...prev, newTag]);
-      setInputValue(''); // Clear the input value after creating the tag
-    }
-  };
+  const navigate = useNavigate();
 
   const generateTagWithId = (tag: string | Tag): Tag => {
-    if (typeof tag === 'string') {
+    if (typeof tag === 'string'){
+      // check if tag already exists
+      const existingTag = availableTags.find(t => t.label === tag.trim());
+      if (existingTag) {
+        return existingTag;
+      }
       // Generate unique ID for new tag
-      return {
-        id: uuidv4(),
-        label: tag
-      };
-    } else {
+      const newTag = { id: uuidv4(), label: tag.trim() };
+      onAddTag(newTag);
+      return newTag;
+    } else{
       // Return existing tag as is
       return tag;
     }
@@ -47,13 +39,13 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
     onSubmit({
       title: titleValue,
       markdown: markdownValue,
-      tags: [],
+      tags: selectedTags,
     });
-    console.log(selectedTags);
+    navigate('..');
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ '& button': { m: 1 } }}>
+    <Box component="form" onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
@@ -70,7 +62,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
             multiple
             freeSolo
             id="note-tags"
-            onInputChange={handleInputChange}
             options={availableTags.map(tag => {
               return {label: tag.label, id: tag.id}
             })}
@@ -81,11 +72,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
             renderInput={(params) => (
               <TextField
                 {...params}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    handleCreateTag();
-                  }
-                }}
                 label="Category"
                 variant="outlined"
                 margin="normal"
@@ -106,7 +92,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
             fullWidth  // Ensure the TextField takes the full width
           />
         </Grid>
-        <Grid item xs={12} container justifyContent={'flex-end'}>
+        <Grid item xs={12} container justifyContent={'flex-end'} gap={2}>
           <Button
           type="submit"
           variant="contained"

@@ -1,5 +1,5 @@
 import { useLocalStorage } from './hooks/useLocalStorage';
-import Button from '@mui/material/Button';
+import { NoteList } from './components/NoteList';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { NewNote } from './components/NewNote';
 import { useMemo } from 'react';
@@ -53,7 +53,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Button>Hello World</Button>} />
+        <Route path="/" element={<NoteList notes={notesWithTags} availableTags={tags} />} />
         <Route path="/new" element={<NewNote onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} />} />
         <Route path="/:id">
           <Route index element={<h1>Show</h1>} />
