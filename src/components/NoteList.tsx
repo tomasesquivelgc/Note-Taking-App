@@ -88,6 +88,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
 function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (
     <Grid item xs={12} md={6} lg={4} textAlign={"center"}>
+      <Link to={`${id}`} style={{textDecoration: 'none'}}>
       <CardActionArea  sx={{ height: "100%" }}>
         <Card elevation={3}  sx={{ height: "100%" }}>
           <CardContent>
@@ -102,6 +103,7 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
           </CardContent>
         </Card>
       </CardActionArea>
+      </Link>
     </Grid>
   )
 }
