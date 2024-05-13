@@ -45,7 +45,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ '& button': { m: 1 } }}>
+    <Box component="form" onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
@@ -92,7 +92,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
             fullWidth  // Ensure the TextField takes the full width
           />
         </Grid>
-        <Grid item xs={12} container justifyContent={'flex-end'}>
+        <Grid item xs={12} container justifyContent={'flex-end'} gap={2}>
           <Button
           type="submit"
           variant="contained"
