@@ -1,4 +1,4 @@
-import { Grid, Stack, Button, Container, Box, TextField, Autocomplete } from "@mui/material";
+import { Grid, Stack, Button, Container, Box, TextField, Autocomplete, Card, CardContent, Typography, Chip, CardActionArea } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Tag, Note } from "../App";
@@ -73,7 +73,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
           />
           </Grid>
         </Box>
-        <Grid container width={"100%"} gap={0}>
+        <Grid container gap={2}>
           {filteredNotes.map(note => {
             return <NoteCard key={note.id} id={note.id} title={note.title} tags={note.tags} />
           })}
@@ -84,15 +84,21 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
 
 function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (
-    <Grid item xs={6} md={4}>
-      <Container>
-        <h2>{title}</h2>
-        <ul>
-          {tags.map(tag => {
-            return <li key={tag.id}>{tag.label}</li>
-          })}
-        </ul>
-      </Container>
+    <Grid item xs={6} md={4} textAlign={"center"}>
+      <CardActionArea>
+        <Card elevation={3}>
+          <CardContent>
+            <Typography variant="h4" component={"div"}>
+              {title}
+            </Typography>
+            <Stack direction={"row"} spacing={1} justifyContent={"center"}>
+              {tags.map(tag => {
+              return <Chip color="primary" key={tag.id} label={tag.label} />
+            })}
+            </Stack>
+          </CardContent>
+        </Card>
+      </CardActionArea>
     </Grid>
   )
 }
