@@ -73,7 +73,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
           />
           </Grid>
         </Box>
-        <Grid container gap={2}>
+        <Grid container spacing={2}>
           {filteredNotes.map(note => {
             return <NoteCard key={note.id} id={note.id} title={note.title} tags={note.tags} />
           })}
@@ -84,7 +84,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
 
 function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (
-    <Grid item xs={6} md={4} textAlign={"center"}>
+    <Grid item xs={12} md={6} lg={4} textAlign={"center"}>
       <CardActionArea>
         <Card elevation={3}>
           <CardContent>
