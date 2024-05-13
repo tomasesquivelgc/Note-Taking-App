@@ -25,8 +25,9 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
   }, [notes, titleValue, selectedTags])
 
   return (
-      <Grid container alignItems="center" width={"100%"} p={2}>
-        <Grid item xs={5}>
+      <Grid container alignItems="center" width={"100%"} p={2}  gap={2}>
+        <Stack direction={"row"} width={"100%"} alignItems={"center"}>
+          <Grid item xs={5}>
           <h1>Notes</h1>
         </Grid>
         <Grid item xs={7}>
@@ -41,6 +42,8 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
             </Button>
           </Stack>
         </Grid>
+        </Stack>
+        
         <Box component="form" width="100%" display="flex" gap={2} justifyContent={"center"} justifySelf={"center"}>
           <Grid item xs={6}>
             <TextField
@@ -85,12 +88,12 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
 function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (
     <Grid item xs={12} md={6} lg={4} textAlign={"center"}>
-      <CardActionArea>
-        <Card elevation={3}>
+      <CardActionArea  sx={{ height: "100%" }}>
+        <Card elevation={3}  sx={{ height: "100%" }}>
           <CardContent>
-            <Typography variant="h4" component={"div"}>
+            <h2>
               {title}
-            </Typography>
+            </h2>
             <Stack direction={"row"} spacing={1} justifyContent={"center"}>
               {tags.map(tag => {
               return <Chip color="primary" key={tag.id} label={tag.label} />
