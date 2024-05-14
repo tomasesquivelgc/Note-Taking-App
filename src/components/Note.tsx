@@ -1,10 +1,15 @@
 import { Box, Grid, Stack, Chip, Button } from "@mui/material";
 import { useNote } from "./NoteLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Markdown from "react-markdown";
 
-export function Note(){
+type NoteProps = {
+  onDelete: (id: string) => void;
+}
+
+export function Note({onDelete}: NoteProps){
   const note = useNote();
+  const navigate = useNavigate();
   return (
     <Grid container p={4} spacing={2} alignItems={"center"}>
       <Grid item xs={6}>
@@ -20,7 +25,15 @@ export function Note(){
           <Link to="edit">
             <Button variant="contained">Edit</Button>
           </Link>
-          <Button variant="outlined" color="error">Delete</Button>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => {
+              onDelete(note.id)
+              navigate("/")
+            }}>
+            Delete
+          </Button>
           <Link to="..">
             <Button
               sx={{
