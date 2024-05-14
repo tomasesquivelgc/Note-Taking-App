@@ -1,6 +1,7 @@
 import { Box, Grid, Stack, Chip, Button } from "@mui/material";
 import { useNote } from "./NoteLayout";
 import { Link } from "react-router-dom";
+import Markdown from "react-markdown";
 
 export function Note(){
   const note = useNote();
@@ -16,28 +17,30 @@ export function Note(){
       </Grid>    
       <Grid item xs={6} alignItems={"center"} >
         <Stack direction={"row"} justifyContent={"right"} spacing={2}>
-          <Button variant="contained">Edit</Button>
+          <Link to="edit">
+            <Button variant="contained">Edit</Button>
+          </Link>
           <Button variant="outlined" color="error">Delete</Button>
           <Link to="..">
-          <Button
-    sx={{
-      border: '1px solid gray',
-      color: 'gray',
-      backgroundColor: 'white',
-      '&:hover': {
-        backgroundColor: '#f0f0f0',
-        border: '1px solid gray',
-      },
-    }}
-    variant="outlined"
-  >
-            Back
-          </Button>
+            <Button
+              sx={{
+                border: '1px solid gray',
+                color: 'gray',
+                backgroundColor: 'white',
+                '&:hover': {
+                  backgroundColor: '#f0f0f0',
+                  border: '1px solid gray',
+                },
+              }}
+              variant="outlined"
+            >
+              Back
+            </Button>
           </Link>
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        {note.markdown}
+        <Markdown>{note.markdown}</Markdown>
       </Grid>
     </Grid>
   )
