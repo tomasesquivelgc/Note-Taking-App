@@ -8,12 +8,12 @@ type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
   onAddTag: (tag: Tag) => void;
   availableTags: Tag[];
-};
+} & Partial<NoteData>;
 
-export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): JSX.Element {
-  const [titleValue, setTitleValue] = useState('');
-  const [markdownValue, setMarkdownValue] = useState('');
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdown = "", tags = [] }: NoteFormProps): JSX.Element {
+  const [titleValue, setTitleValue] = useState(title);
+  const [markdownValue, setMarkdownValue] = useState(markdown);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
 
   const navigate = useNavigate();
 
@@ -49,6 +49,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
+            defaultValue={title}
             onChange={(event) => setTitleValue(event.target.value)}
             label="Title"
             variant="outlined"
@@ -59,6 +60,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
         </Grid>
         <Grid item xs={6}>
           <Autocomplete
+            defaultValue={tags} 
             multiple
             freeSolo
             id="note-tags"
@@ -82,6 +84,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps): 
         </Grid>
         <Grid item xs={12}>
           <TextField
+            defaultValue={markdown}
             onChange={(event) => setMarkdownValue(event.target.value)}
             required
             label="Content"
