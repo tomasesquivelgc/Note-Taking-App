@@ -6,7 +6,7 @@ import Markdown from "react-markdown";
 export function Note(){
   const note = useNote();
   return (
-    <Grid container p={2} spacing={2} alignItems={"center"}>
+    <Grid container p={4} spacing={2} alignItems={"center"}>
       <Grid item xs={6}>
           <h1>{note.title}</h1> 
           <Stack direction={"row"} spacing={1} >

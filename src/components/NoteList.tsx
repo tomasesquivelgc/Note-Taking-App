@@ -25,7 +25,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
   }, [notes, titleValue, selectedTags])
 
   return (
-      <Grid container alignItems="center" width={"100%"} p={2}  gap={2}>
+      <Grid container alignItems="center" width={"100%"} p={4}  gap={2}>
         <Stack direction={"row"} width={"100%"} alignItems={"center"}>
           <Grid item xs={5}>
           <h1>Notes</h1>
