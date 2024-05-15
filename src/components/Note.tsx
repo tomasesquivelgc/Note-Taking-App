@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Chip, Button } from "@mui/material";
+import { Grid, Stack, Chip, Button } from "@mui/material";
 import { useNote } from "./NoteLayout";
 import { Link, useNavigate } from "react-router-dom";
 import Markdown from "react-markdown";
