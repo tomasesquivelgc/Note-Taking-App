@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField } from '@mui/material';
+import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField, Button } from '@mui/material';
 import { Tag } from '../App';
 
 const style = {
@@ -14,7 +14,16 @@ const style = {
   p: 4,
 };
 
-export function TagsModal({ open, handleClose, availableTags }: { open: boolean, handleClose: () => void, availableTags: Tag[] }) {
+type ModalProps = {
+  open: boolean,
+  handleClose: () => void,
+  availableTags: Tag[],
+  updateTag: (id: string, label: string) => void,
+  deleteTag: (id: string) => void
+
+}
+
+export function TagsModal({ open, handleClose, availableTags, updateTag, deleteTag }: ModalProps) {
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -38,7 +47,7 @@ export function TagsModal({ open, handleClose, availableTags }: { open: boolean,
             {availableTags.map(tag => (
               <ListItem disablePadding key={tag.id} sx={{ display: 'flex', alignItems: 'center' }}>
                 <TextField defaultValue={tag.label} fullWidth sx={{ flexGrow: 1, marginRight: '8px' }} />
-                <ListItemButton sx={{
+                <ListItemButton onClick={()=>deleteTag(tag.id)} sx={{
                   border: '1px solid red',
                   width: '40px',
                   height: 'full',
@@ -50,6 +59,9 @@ export function TagsModal({ open, handleClose, availableTags }: { open: boolean,
                 </ListItemButton>
               </ListItem>
             ))}
+            <Button variant="contained" fullWidth onClick={handleClose}>
+              Close
+            </Button>
           </List>
         </Box>
       </Fade>

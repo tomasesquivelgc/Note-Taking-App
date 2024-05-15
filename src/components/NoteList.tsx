@@ -12,10 +12,12 @@ type SimplifiedNote = {
 
 type NoteListProps = {
   availableTags: Tag[],
-  notes: SimplifiedNote[]
+  notes: SimplifiedNote[],
+  updateTag: (id: string, label: string) => void,
+  deleteTag: (id: string) => void
 }
 
-export function NoteList({ availableTags, notes }: NoteListProps) {
+export function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [titleValue, setTitleValue] = useState('');
   const [open, setOpen] = useState(false);
@@ -86,7 +88,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
           })}
         </Grid>
       </Grid>
-      <TagsModal open={open} handleClose={handleClose} availableTags={availableTags} />
+      <TagsModal open={open} handleClose={handleClose} availableTags={availableTags} updateTag={updateTag} deleteTag={deleteTag} />
     </>
   );
 }
