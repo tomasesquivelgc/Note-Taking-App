@@ -1,0 +1,58 @@
+import React from 'react';
+import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField } from '@mui/material';
+import { Tag } from '../App';
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export function TagsModal({ open, handleClose, availableTags }: { open: boolean, handleClose: () => void, availableTags: Tag[] }) {
+  return (
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={open}
+      onClose={handleClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
+      }}
+    >
+      <Fade in={open}>
+        <Box sx={style}>
+          <Typography id="transition-modal-title" variant="h6" component="h2">
+            Edit Tags
+          </Typography>
+          <List>
+            {availableTags.map(tag => (
+              <ListItem disablePadding key={tag.id} sx={{ display: 'flex', alignItems: 'center' }}>
+                <TextField defaultValue={tag.label} fullWidth sx={{ flexGrow: 1, marginRight: '8px' }} />
+                <ListItemButton sx={{
+                  border: '1px solid red',
+                  width: '40px',
+                  height: 'full',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                  &times;
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Fade>
+    </Modal>
+  )
+}

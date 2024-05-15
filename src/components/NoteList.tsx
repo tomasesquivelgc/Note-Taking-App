@@ -1,7 +1,8 @@
-import { Grid, Stack, Button, Container, Box, TextField, Autocomplete, Card, CardContent, Typography, Chip, CardActionArea } from "@mui/material";
+import { Grid, Stack, Button, Container, Box, TextField, Autocomplete, Card, CardContent, Typography, Chip, CardActionArea, Modal, Backdrop, Fade } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Tag, Note } from "../App";
+import { TagsModal } from "./TagsModal";
 
 type SimplifiedNote = {
   tags: Tag[],
@@ -17,6 +18,9 @@ type NoteListProps = {
 export function NoteList({ availableTags, notes }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [titleValue, setTitleValue] = useState('');
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const filteredNotes = useMemo(() => {
     return notes.filter(note =>{
@@ -25,6 +29,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
   }, [notes, titleValue, selectedTags])
 
   return (
+    <>
       <Grid container alignItems="center" width={"100%"} p={4}  gap={2}>
         <Stack direction={"row"} width={"100%"} alignItems={"center"}>
           <Grid item xs={5}>
@@ -37,13 +42,12 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
                 Create Note
               </Button>
             </Link> 
-            <Button variant="outlined">
+            <Button variant="outlined" onClick={handleOpen}>
               Edit Tags
             </Button>
           </Stack>
         </Grid>
         </Stack>
-        
         <Box component="form" width="100%" display="flex" gap={2} justifyContent={"center"} justifySelf={"center"}>
           <Grid item xs={6}>
             <TextField
@@ -82,6 +86,8 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
           })}
         </Grid>
       </Grid>
+      <TagsModal open={open} handleClose={handleClose} availableTags={availableTags} />
+    </>
   );
 }
 
@@ -107,3 +113,4 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
     </Grid>
   )
 }
+
