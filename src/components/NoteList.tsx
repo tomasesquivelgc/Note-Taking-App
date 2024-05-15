@@ -1,7 +1,7 @@
-import { Grid, Stack, Button, Container, Box, TextField, Autocomplete, Card, CardContent, Typography, Chip, CardActionArea, Modal, Backdrop, Fade } from "@mui/material";
+import { Grid, Stack, Button, Box, TextField, Autocomplete, Card, CardContent, Chip, CardActionArea } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
-import { Tag, Note } from "../App";
+import { Tag} from "../App";
 import { TagsModal } from "./TagsModal";
 
 type SimplifiedNote = {

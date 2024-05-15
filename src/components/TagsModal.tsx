@@ -1,9 +1,8 @@
-import React from 'react';
 import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField, Button } from '@mui/material';
 import { Tag } from '../App';
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute' as const,
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
