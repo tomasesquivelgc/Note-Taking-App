@@ -46,7 +46,7 @@ export function TagsModal({ open, handleClose, availableTags, updateTag, deleteT
           <List>
             {availableTags.map(tag => (
               <ListItem disablePadding key={tag.id} sx={{ display: 'flex', alignItems: 'center' }}>
-                <TextField defaultValue={tag.label} fullWidth sx={{ flexGrow: 1, marginRight: '8px' }} />
+                <TextField onChange={(event) => updateTag(tag.id, event.target.value)} defaultValue={tag.label} fullWidth sx={{ flexGrow: 1, marginRight: '8px' }} />
                 <ListItemButton onClick={()=>deleteTag(tag.id)} sx={{
                   border: '1px solid red',
                   width: '40px',
