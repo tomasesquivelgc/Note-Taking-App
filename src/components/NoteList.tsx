@@ -2,7 +2,7 @@ import { Grid, Stack, Button, Box, TextField, Autocomplete, Card, CardContent, C
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Tag} from "../App";
-import { TagsModal } from "./TagsModal";
+import  TagsModal  from "./TagsModal";
 
 type SimplifiedNote = {
   tags: Tag[],
@@ -17,7 +17,7 @@ type NoteListProps = {
   deleteTag: (id: string) => void
 }
 
-export function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteListProps) {
+export default function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [titleValue, setTitleValue] = useState('');
   const [open, setOpen] = useState(false);
@@ -98,7 +98,7 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
     <Grid item xs={12} md={6} lg={4} textAlign={"center"}>
       <Link to={`${id}`} style={{textDecoration: 'none'}}>
       <CardActionArea  sx={{ height: "100%" }}>
-        <Card elevation={3}  sx={{ height: "100%" }}>
+        <Card elevation={3}  sx={{ height: "100%", transition: 'background-color 0.3s ease, color 0.3s ease' }}>
           <CardContent>
             <h2>
               {title}

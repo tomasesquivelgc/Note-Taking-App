@@ -1,6 +1,6 @@
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { NoteList } from './components/NoteList';
-import { NoteLayout } from './components/NoteLayout';
+import NoteList from './components/NoteList';
+import NoteLayout from './components/NoteLayout';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { NewNote } from './components/NewNote';
 import { useMemo } from 'react';

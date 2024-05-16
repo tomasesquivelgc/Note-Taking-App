@@ -5,7 +5,7 @@ type NoteLayoutProps = {
   notes: Note[]
 }
 
-export function NoteLayout({notes}: NoteLayoutProps){
+export default function NoteLayout({notes}: NoteLayoutProps){
   const {id} = useParams();
   const note = notes.find(note => note.id === id);
 

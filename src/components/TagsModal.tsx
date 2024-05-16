@@ -26,7 +26,7 @@ type ModalProps = {
 
 }
 
-export function TagsModal({ open, handleClose, availableTags, updateTag, deleteTag }: ModalProps) {
+export default function TagsModal({ open, handleClose, availableTags, updateTag, deleteTag }: ModalProps) {
   return (
     <Modal
       aria-labelledby="transition-modal-title"
