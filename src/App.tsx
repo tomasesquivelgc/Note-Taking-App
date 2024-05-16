@@ -43,42 +43,39 @@ function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
   const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
   // Add global styles for smooth transition
-const globalStyles = `
-body {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-`;
+  const globalStyles = `
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  `;
 
 
-const [mode, setMode] = useState<PaletteMode>('dark'); // Explicitly type the mode state
+  const [mode, setMode] = useState<PaletteMode>('dark'); // Explicitly type the mode state
 
-useEffect(() => {
-  // Inject the global styles into the head of the document
-  const style = document.createElement('style');
-  style.innerHTML = globalStyles;
-  document.head.appendChild(style);
-  return () => {
-    document.head.removeChild(style);
+  useEffect(() => {
+    // Inject the global styles into the head of the document
+    const style = document.createElement('style');
+    style.innerHTML = globalStyles;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  const theme = useMemo(() => createTheme({
+    typography: {
+      h1: {
+        fontSize: 100,
+      },
+    },
+    palette: {
+      mode: mode,
+    },
+  }), [mode]);
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
   };
-}, []);
-
-const theme = useMemo(() => createTheme({
-  typography: {
-    h1: {
-      fontSize: 100,
-    },
-    body1: {
-      fontWeight: 500,
-    },
-  },
-  palette: {
-    mode: mode,
-  },
-}), [mode]);
-
-const toggleTheme = () => {
-  setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-};
 
   
 
