@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Note } from './components/Note';
 import { EditNote } from './components/EditNote';
 
+
+
 export type Note = {
   id: string
 } & NoteData
@@ -88,7 +90,6 @@ function App() {
       return prevTags.filter(tag => tag.id !== id)
     })
   }
-
 
   return (
     <>
