@@ -14,17 +14,16 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
   const [titleValue, setTitleValue] = useState(title);
   const [markdownValue, setMarkdownValue] = useState(markdown);
   const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
-  const [inputValue, setInputValue] = useState('');
 
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
-  };
+  }
 
   const generateTagWithId = (tag: string | Tag): Tag => {
-    if (typeof tag === 'string') {
-      // Check if tag already exists
+    if (typeof tag === 'string'){
+      // check if tag already exists
       const existingTag = availableTags.find(t => t.label === tag.trim());
       if (existingTag) {
         return existingTag;
@@ -33,7 +32,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
       const newTag = { id: uuidv4(), label: tag.trim() };
       onAddTag(newTag);
       return newTag;
-    } else {
+    } else{
       // Return existing tag as is
       return tag;
     }
@@ -47,16 +46,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
       tags: selectedTags,
     });
     navigate('..');
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === 'Next') {
-      event.preventDefault();
-      // Update the inputValue state to trigger the onChange event in Autocomplete
-      if (inputValue.trim()) {
-        setInputValue(inputValue.trim());
-      }
-    }
   };
 
   return (
@@ -75,15 +64,17 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
         </Grid>
         <Grid item xs={6}>
           <Autocomplete
-            defaultValue={tags}
+            defaultValue={tags} 
             multiple
             freeSolo
             id="note-tags"
-            options={availableTags}
-            value={selectedTags}
-            inputValue={inputValue}
-            onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
-            onChange={(_, value) => setSelectedTags(value.map(generateTagWithId))}
+            options={availableTags.map(tag => {
+              return {label: tag.label, id: tag.id}
+            })}
+            onChange={(_, value) => {
+              setSelectedTags(value.map(generateTagWithId))
+            }}
+
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -91,7 +82,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                onKeyDown={handleKeyDown}
               />
             )}
           />
@@ -111,16 +101,17 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
         </Grid>
         <Grid item xs={12} container justifyContent={'flex-end'} gap={2}>
           <Button
-            type="submit"
-            variant="contained"
+          type="submit"
+          variant="contained"
           >
-            Submit
+          Submit
           </Button>
           <Button onClick={goBack} variant='outlined'>
             Cancel
           </Button>
         </Grid>
       </Grid>
+      
     </Box>
   );
 }
