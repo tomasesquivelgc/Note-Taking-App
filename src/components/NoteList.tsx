@@ -40,7 +40,7 @@ export default function NoteList({ availableTags, notes, updateTag, deleteTag }:
             </Typography>
         </Grid>
         <Grid item xs={7}>
-          <Stack direction="row" spacing={2} justifyContent={"right"}>
+          <Stack direction="row" gap={2} justifyContent={"right"} flexWrap={"wrap"}>
             <Link to="/new">
               <Button variant="contained">
                 Create Note
@@ -105,7 +105,7 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
             <h2>
               {title}
             </h2>
-            <Stack direction={"row"} spacing={1} justifyContent={"center"}>
+            <Stack direction={"row"} gap={1} justifyContent={"center"} flexWrap={"wrap"}>
               {tags.map(tag => {
               return <Chip color="primary" key={tag.id} label={tag.label} />
             })}

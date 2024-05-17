@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { NoteForm } from "./NoteForm"
 import { NoteData, Tag } from "../App";
 
@@ -11,7 +11,7 @@ type newNoteProps = {
 export function NewNote({onSubmit, onAddTag, availableTags}: newNoteProps) {
   return (
     <Box p={3}>
-      <h1>New Note</h1>
+      <Typography variant="h1">New Note</Typography>
       <NoteForm onSubmit={onSubmit} onAddTag={onAddTag} availableTags={availableTags} />
     </Box>
   )
