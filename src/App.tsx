@@ -47,7 +47,7 @@ function App() {
   const theme = useMemo(() => createTheme({
     typography: {
       h1: {
-        fontSize: 100,
+        fontSize: 50,
       },
     },
     palette: {

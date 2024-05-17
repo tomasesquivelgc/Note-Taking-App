@@ -1,4 +1,4 @@
-import { Grid, Stack, Button, Box, TextField, Autocomplete, Card, CardContent, Chip, CardActionArea } from "@mui/material";
+import { Grid, Stack, Button, Box, TextField, Autocomplete, Card, CardContent, Chip, CardActionArea, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Tag} from "../App";
@@ -35,7 +35,9 @@ export default function NoteList({ availableTags, notes, updateTag, deleteTag }:
       <Grid container alignItems="center" width={"100%"} p={3}  gap={2}>
         <Stack direction={"row"} width={"100%"} alignItems={"center"}>
           <Grid item xs={5}>
-          <h1>Notes</h1>
+            <Typography variant="h1">
+              Notes
+            </Typography>
         </Grid>
         <Grid item xs={7}>
           <Stack direction="row" spacing={2} justifyContent={"right"}>
