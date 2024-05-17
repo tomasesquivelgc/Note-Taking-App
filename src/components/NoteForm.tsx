@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
 
 type NoteFormProps = {

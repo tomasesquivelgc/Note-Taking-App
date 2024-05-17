@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, IconButton, PaletteMode, Button, Icon } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, PaletteMode } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
