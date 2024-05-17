@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
 
@@ -38,8 +38,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
     }
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  const handleSubmit = (): void => {
     onSubmit({
       title: titleValue,
       markdown: markdownValue,
@@ -49,7 +48,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
@@ -101,7 +100,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
         </Grid>
         <Grid item xs={12} container justifyContent={'flex-end'} gap={2}>
           <Button
-          type="submit"
+          onClick={handleSubmit}
           variant="contained"
           >
           Submit
