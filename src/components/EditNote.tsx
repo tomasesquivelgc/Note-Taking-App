@@ -12,7 +12,7 @@ type EditNoteProps = {
 export function EditNote({onSubmit, onAddTag, availableTags}: EditNoteProps) {
   const note = useNote();
   return (
-    <Box p={4}>
+    <Box p={3}>
       <h1>Edit Note</h1>
       <NoteForm
         title={note.title}

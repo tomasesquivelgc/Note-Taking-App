@@ -32,7 +32,7 @@ export default function NoteList({ availableTags, notes, updateTag, deleteTag }:
 
   return (
     <>
-      <Grid container alignItems="center" width={"100%"} p={4}  gap={2}>
+      <Grid container alignItems="center" width={"100%"} p={3}  gap={2}>
         <Stack direction={"row"} width={"100%"} alignItems={"center"}>
           <Grid item xs={5}>
           <h1>Notes</h1>
