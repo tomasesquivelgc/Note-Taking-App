@@ -1,20 +1,22 @@
 import { AppBar, Toolbar, Typography, IconButton, PaletteMode, Button, Icon } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export default function Navbar({ toggleTheme, mode}: {toggleTheme: () => void, mode: PaletteMode}){
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  }
   return (
     <AppBar position="static">
       <Toolbar>
       {!isHomePage ? (
-          <Link to='...' style={{ textDecoration: 'none', color: 'inherit' }}>
-            <IconButton>
+            <IconButton onClick={goBack}>
               <ArrowBackIosNewIcon />
             </IconButton>
-          </Link>
         ) : (
           <div style={{ width: '40px' }} />
         )}

@@ -102,9 +102,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
           >
           Submit
           </Button>
-          <Link to="..">
-            <Button variant="outlined">Cancel</Button>
-          </Link>
         </Grid>
       </Grid>
       

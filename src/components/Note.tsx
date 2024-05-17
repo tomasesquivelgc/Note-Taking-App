@@ -34,22 +34,6 @@ export function Note({onDelete}: NoteProps){
             }}>
             Delete
           </Button>
-          <Link to="..">
-            <Button
-              sx={{
-                border: '1px solid gray',
-                color: 'gray',
-                backgroundColor: 'white',
-                '&:hover': {
-                  backgroundColor: '#f0f0f0',
-                  border: '1px solid gray',
-                },
-              }}
-              variant="outlined"
-            >
-              Back
-            </Button>
-          </Link>
         </Stack>
       </Grid>
       <Grid item xs={12}>
