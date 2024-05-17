@@ -1,8 +1,8 @@
-import { Grid, Stack, Button, Box, TextField, Autocomplete, Card, CardContent, Chip, CardActionArea } from "@mui/material";
+import { Grid, Stack, Button, Box, TextField, Autocomplete, Card, CardContent, Chip, CardActionArea, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Tag} from "../App";
-import { TagsModal } from "./TagsModal";
+import  TagsModal  from "./TagsModal";
 
 type SimplifiedNote = {
   tags: Tag[],
@@ -17,7 +17,7 @@ type NoteListProps = {
   deleteTag: (id: string) => void
 }
 
-export function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteListProps) {
+export default function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [titleValue, setTitleValue] = useState('');
   const [open, setOpen] = useState(false);
@@ -32,13 +32,15 @@ export function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteLis
 
   return (
     <>
-      <Grid container alignItems="center" width={"100%"} p={4}  gap={2}>
+      <Grid container alignItems="center" width={"100%"} p={3}  gap={2}>
         <Stack direction={"row"} width={"100%"} alignItems={"center"}>
           <Grid item xs={5}>
-          <h1>Notes</h1>
+            <Typography variant="h1">
+              Notes
+            </Typography>
         </Grid>
         <Grid item xs={7}>
-          <Stack direction="row" spacing={2} justifyContent={"right"}>
+          <Stack direction="row" gap={2} justifyContent={"right"} flexWrap={"wrap"}>
             <Link to="/new">
               <Button variant="contained">
                 Create Note
@@ -98,12 +100,12 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
     <Grid item xs={12} md={6} lg={4} textAlign={"center"}>
       <Link to={`${id}`} style={{textDecoration: 'none'}}>
       <CardActionArea  sx={{ height: "100%" }}>
-        <Card elevation={3}  sx={{ height: "100%" }}>
+        <Card elevation={3}  sx={{ height: "100%", transition: 'background-color 0.3s ease, color 0.3s ease' }}>
           <CardContent>
             <h2>
               {title}
             </h2>
-            <Stack direction={"row"} spacing={1} justifyContent={"center"}>
+            <Stack direction={"row"} gap={1} justifyContent={"center"} flexWrap={"wrap"}>
               {tags.map(tag => {
               return <Chip color="primary" key={tag.id} label={tag.label} />
             })}

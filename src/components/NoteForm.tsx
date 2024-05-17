@@ -17,6 +17,10 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
 
   const navigate = useNavigate();
 
+  const goBack = () => {
+    navigate(-1);
+  }
+
   const generateTagWithId = (tag: string | Tag): Tag => {
     if (typeof tag === 'string'){
       // check if tag already exists
@@ -102,9 +106,9 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
           >
           Submit
           </Button>
-          <Link to="..">
-            <Button variant="outlined">Cancel</Button>
-          </Link>
+          <Button onClick={goBack} variant='outlined'>
+            Cancel
+          </Button>
         </Grid>
       </Grid>
       

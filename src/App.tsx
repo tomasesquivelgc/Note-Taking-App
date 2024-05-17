@@ -1,12 +1,17 @@
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { NoteList } from './components/NoteList';
-import { NoteLayout } from './components/NoteLayout';
+import NoteList from './components/NoteList';
+import NoteLayout from './components/NoteLayout';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { NewNote } from './components/NewNote';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Note } from './components/Note';
 import { EditNote } from './components/EditNote';
+import { PaletteMode } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import Navbar from './components/Navbar';
+
+
 
 export type Note = {
   id: string
@@ -36,6 +41,26 @@ export type Tag = {
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
   const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
+  const [mode, setMode] = useState<PaletteMode>('dark'); // Explicitly type the mode state
+
+
+  const theme = useMemo(() => createTheme({
+    typography: {
+      h1: {
+        fontSize: 50,
+        fontWeight: 500,
+      },
+    },
+    palette: {
+      mode: mode,
+    },
+  }), [mode]);
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  };
+
+  
 
   const notesWithTags = useMemo(() => {
     return notes.map(note => {
@@ -89,9 +114,10 @@ function App() {
     })
   }
 
-
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Navbar toggleTheme={toggleTheme} mode={mode} />
       <Routes>
         <Route path="/" element={<NoteList notes={notesWithTags} availableTags={tags} updateTag={updateTag} deleteTag={deleteTag} />} />
         <Route path="/new" element={<NewNote onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} />} />
@@ -101,7 +127,7 @@ function App() {
         </Route>
         <Route path="*" element={<Navigate to="/"/>} />
       </Routes>
-    </>
+    </ThemeProvider>
   )
 }
 

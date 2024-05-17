@@ -1,5 +1,6 @@
-import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField, Button } from '@mui/material';
+import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField, Button, IconButton } from '@mui/material';
 import { Tag } from '../App';
+import { DeleteForever } from '@mui/icons-material';
 
 const style = {
   position: 'absolute' as const,
@@ -11,6 +12,9 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  maxHeight: '80vh', // Restrict the height of the modal box
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 type ModalProps = {
@@ -22,7 +26,7 @@ type ModalProps = {
 
 }
 
-export function TagsModal({ open, handleClose, availableTags, updateTag, deleteTag }: ModalProps) {
+export default function TagsModal({ open, handleClose, availableTags, updateTag, deleteTag }: ModalProps) {
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -42,9 +46,9 @@ export function TagsModal({ open, handleClose, availableTags, updateTag, deleteT
           <Typography id="transition-modal-title" variant="h6" component="h2">
             Edit Tags
           </Typography>
-          <List>
+          <List sx={{overflow: 'auto',}}>
             {availableTags.map(tag => (
-              <ListItem disablePadding key={tag.id} sx={{ display: 'flex', alignItems: 'center' }}>
+              <ListItem disablePadding key={tag.id} sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
                 <TextField onChange={(event) => updateTag(tag.id, event.target.value)} defaultValue={tag.label} fullWidth sx={{ flexGrow: 1, marginRight: '8px' }} />
                 <ListItemButton onClick={()=>deleteTag(tag.id)} sx={{
                   border: '1px solid red',
@@ -54,7 +58,9 @@ export function TagsModal({ open, handleClose, availableTags, updateTag, deleteT
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                  &times;
+                  <IconButton>
+                    <DeleteForever />
+                  </IconButton>
                 </ListItemButton>
               </ListItem>
             ))}
