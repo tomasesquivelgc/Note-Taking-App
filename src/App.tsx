@@ -48,6 +48,7 @@ function App() {
     typography: {
       h1: {
         fontSize: 50,
+        fontWeight: 500,
       },
     },
     palette: {

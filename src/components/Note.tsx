@@ -1,4 +1,4 @@
-import { Grid, Stack, Chip, Button } from "@mui/material";
+import { Grid, Stack, Chip, Button, Typography } from "@mui/material";
 import { useNote } from "./NoteLayout";
 import { Link, useNavigate } from "react-router-dom";
 import Markdown from "react-markdown";
@@ -11,9 +11,9 @@ export function Note({onDelete}: NoteProps){
   const note = useNote();
   const navigate = useNavigate();
   return (
-    <Grid container p={3} spacing={2} alignItems={"center"}>
+    <Grid container p={3} alignItems={"center"}>
       <Grid item xs={6}>
-          <h1>{note.title}</h1> 
+          <Typography variant="h1">{note.title}</Typography>
           <Stack direction={"row"} spacing={1} >
             {note.tags.map(tag => {
               return <Chip color="primary" key={tag.id} label={tag.label} />

@@ -20,9 +20,13 @@ export default function Navbar({ toggleTheme, mode}: {toggleTheme: () => void, m
         ) : (
           <div style={{ width: '40px' }} />
         )}
+        
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
-          Notes
+          <Link to=".." style={{textDecoration: "none", color: "inherit"}}>
+          Advanced Note Taker
+          </Link>
         </Typography>
+        
         <IconButton onClick={toggleTheme} color="inherit">
         {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
       </IconButton>
