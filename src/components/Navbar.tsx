@@ -38,6 +38,7 @@ export default function Navbar({ themeName, handleThemeChange }: { themeName: Th
           <MenuItem value="light">Light</MenuItem>
           <MenuItem value="dark">Dark</MenuItem>
           <MenuItem value="dracula">Dracula</MenuItem>
+          <MenuItem value='coffee'>Coffee</MenuItem>
         </Select>
       </Toolbar>
     </AppBar>

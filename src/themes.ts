@@ -1,7 +1,7 @@
 // themes.ts
 import { createTheme } from "@mui/material";
 
-export const lightTheme = createTheme({
+const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
@@ -19,7 +19,7 @@ export const lightTheme = createTheme({
   },
 });
 
-export const darkTheme = createTheme({
+const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
@@ -31,7 +31,7 @@ export const darkTheme = createTheme({
   },
 });
 
-export const draculaTheme = createTheme({
+ const draculaTheme = createTheme({
   palette: {
     mode: 'dark', // or 'dark', depending on what you prefer
     primary: {
@@ -50,6 +50,9 @@ export const draculaTheme = createTheme({
       selected: '#35303b',
       active: '#35303b',
     },
+    error: {
+      main: '#ff564f'
+    }
   },
   typography: {
     h1: {
@@ -59,10 +62,42 @@ export const draculaTheme = createTheme({
   },
 });
 
+const coffeeTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#d6822e',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#d6822e',
+    },
+    background: {
+      default: '#211720',
+      paper: '#211720',
+    },
+    action: {
+      hover: '#322931',
+      selected: '#322931',
+      active: '#322931',
+    },
+    error: {
+      main: '#fc9783'
+    }
+  },
+  typography: {
+    h1: {
+      fontSize: 50,
+      fontWeight: 500,
+    },
+  }
+});
+
 export const themes = {
   light: lightTheme,
   dark: darkTheme,
   dracula: draculaTheme,
+  coffee: coffeeTheme,
 };
 
 export type ThemeName = keyof typeof themes;
