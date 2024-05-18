@@ -1,4 +1,4 @@
-import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, ListItemButton, TextField, Button, IconButton } from '@mui/material';
+import { Box, Typography, Modal, Backdrop, Fade, List, ListItem, TextField, Button, IconButton } from '@mui/material';
 import { Tag } from '../App';
 import { DeleteForever } from '@mui/icons-material';
 
@@ -50,18 +50,17 @@ export default function TagsModal({ open, handleClose, availableTags, updateTag,
             {availableTags.map(tag => (
               <ListItem disablePadding key={tag.id} sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
                 <TextField onChange={(event) => updateTag(tag.id, event.target.value)} defaultValue={tag.label} fullWidth sx={{ flexGrow: 1, marginRight: '8px' }} />
-                <ListItemButton onClick={()=>deleteTag(tag.id)} sx={{
-                  border: '1px solid red',
+                <IconButton onClick={()=>deleteTag(tag.id)} sx={{
                   width: '40px',
                   height: 'full',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                  <IconButton>
-                    <DeleteForever />
-                  </IconButton>
-                </ListItemButton>
+ 
+                    <DeleteForever color='error' />
+
+                </IconButton>
               </ListItem>
             ))}
             <Button variant="contained" fullWidth onClick={handleClose}>
