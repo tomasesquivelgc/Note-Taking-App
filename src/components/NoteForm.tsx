@@ -50,66 +50,62 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{flexDirection: "column-reverse", display:"flex"}}>
-              <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
-          <Button
+      <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
+        <Button
           type="submit"
           variant="contained"
           >
           Submit
-          </Button>
-          <Button onClick={goBack} variant='outlined'>
-            Cancel
-          </Button>
-        </Stack>
+        </Button>
+        <Button onClick={goBack} variant='outlined'>
+          Cancel
+        </Button>
+      </Stack>
+      <TextField
+        defaultValue={markdown}
+        onChange={(event) => setMarkdownValue(event.target.value)}
+        required
+        label="Content"
+        variant="outlined"
+        margin="normal"
+        multiline
+        rows={13}
+        fullWidth  // Ensure the TextField takes the full width
+      />
+      <Stack direction={'row'} gap={2}>
         <TextField
-            defaultValue={markdown}
-            onChange={(event) => setMarkdownValue(event.target.value)}
-            required
-            label="Content"
-            variant="outlined"
-            margin="normal"
-            multiline
-            rows={13}
-            fullWidth  // Ensure the TextField takes the full width
-          />
-        <Stack direction={'row'}>
-          <TextField
-            sx={{width: '50%'}}
-            defaultValue={title}
-            onChange={(event) => setTitleValue(event.target.value)}
-            label="Title"
-            variant="outlined"
-            margin="normal"
-            required
-          />
-          <Autocomplete
-            sx={{width: '50%'}}
-            defaultValue={tags} 
-            multiple
-            freeSolo
-            id="note-tags"
-            options={availableTags.map(tag => {
-              return {label: tag.label, id: tag.id}
-            })}
-            onChange={(_, value) => {
-              setSelectedTags(value.map(generateTagWithId))
-            }}
-
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Category"
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                rows={3}
+          sx={{width: '50%'}}
+          defaultValue={title}
+          onChange={(event) => setTitleValue(event.target.value)}
+          label="Title"
+          variant="outlined"
+          margin="normal"
+          required
+        />
+        <Autocomplete
+          sx={{width: '50%'}}
+          defaultValue={tags} 
+          multiple
+          freeSolo
+          id="note-tags"
+          options={availableTags.map(tag => {
+            return {label: tag.label, id: tag.id}
+          })}
+          onChange={(_, value) => {
+            setSelectedTags(value.map(generateTagWithId))
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Category"
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              rows={3}
               />
-            )}
-          />
-        </Stack>
-          
-
-      
+          )}
+        />
+      </Stack>
     </Box>
   );
 }
