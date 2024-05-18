@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Autocomplete, Box, Button, Grid, Stack, TextField } from '@mui/material';
+import { Autocomplete, Box, Button, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
-import { Rowing } from '@mui/icons-material';
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
