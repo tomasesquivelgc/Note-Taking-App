@@ -49,19 +49,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-          <TextField
-            defaultValue={markdown}
-            onChange={(event) => setMarkdownValue(event.target.value)}
-            required
-            label="Content"
-            variant="outlined"
-            margin="normal"
-            multiline
-            rows={13}
-            fullWidth  // Ensure the TextField takes the full width
-          />
-      </Grid>
       <Grid item xs={6}>
          <TextField
             defaultValue={title}
@@ -96,6 +83,19 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
                 rows={3}
               />
             )}
+          />
+      </Grid>
+      <Grid item xs={12}>
+          <TextField
+            defaultValue={markdown}
+            onChange={(event) => setMarkdownValue(event.target.value)}
+            required
+            label="Content"
+            variant="outlined"
+            margin="normal"
+            multiline
+            rows={13}
+            fullWidth  // Ensure the TextField takes the full width
           />
       </Grid>
       
