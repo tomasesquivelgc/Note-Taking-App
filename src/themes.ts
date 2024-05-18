@@ -1,6 +1,14 @@
 // themes.ts
 import { createTheme } from "@mui/material";
 
+const customTypography = {
+  h1: {
+    fontSize: 50,
+    fontWeight: 500,
+  },
+};
+
+
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
@@ -11,24 +19,14 @@ const lightTheme = createTheme({
       main: '#092949',
     },
   },
-  typography: {
-    h1: {
-      fontSize: 50,
-      fontWeight: 500,
-    },
-  },
+  typography: customTypography,
 });
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
-  typography: {
-    h1: {
-      fontSize: 50,
-      fontWeight: 500,
-    },
-  },
+  typography: customTypography
 });
 
  const draculaTheme = createTheme({
@@ -54,12 +52,7 @@ const darkTheme = createTheme({
       main: '#ff564f'
     }
   },
-  typography: {
-    h1: {
-      fontSize: 50,
-      fontWeight: 500,
-    },
-  },
+  typography: customTypography,
 });
 
 const coffeeTheme = createTheme({
@@ -85,12 +78,33 @@ const coffeeTheme = createTheme({
       main: '#fc9783'
     }
   },
-  typography: {
-    h1: {
-      fontSize: 50,
-      fontWeight: 500,
+  typography: customTypography,
+});
+
+const lemonadeTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#3f7802',
+      contrastText: '#fff',
     },
-  }
+    secondary: {
+      main: '#e9e92f',
+    },
+    background: {
+      default: '#ffffff',
+      paper: '#ffffff',
+    },
+    action: {
+      hover: '#ededed',
+      selected: '#ededed',
+      active: '#ededed',
+    },
+    error: {
+      main: '#f2b6b5'
+    }
+  },
+  typography: customTypography
 });
 
 export const themes = {
@@ -98,6 +112,7 @@ export const themes = {
   dark: darkTheme,
   dracula: draculaTheme,
   coffee: coffeeTheme,
+  lemonade: lemonadeTheme,
 };
 
 export type ThemeName = keyof typeof themes;
