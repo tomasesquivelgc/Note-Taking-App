@@ -47,6 +47,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
     });
     navigate('..');
   };
+  return (
     <Box component="form" onSubmit={handleSubmit} sx={{flexDirection: "column-reverse", display:"flex"}}>
       <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
         <Button
