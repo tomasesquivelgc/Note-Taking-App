@@ -30,7 +30,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [your_project_name] <a name="about-project"></a>
+# 📖 Advanced Note Taker <a name="about-project"></a>
 
 **Advanced Note Taker** is a simple application that lets the user create notes and organize them with the use of tags. Every note and tag is then saved inside the local storage for reading, updating and deleting. Furthermore, the body of the notes uses markdown to allow the user a more complete experience.
 
@@ -45,12 +45,9 @@
   <li><a href="https://mui.com/material-ui/">Material UI</a></li>
 </ul>
 
-
 <!-- Features -->
 
 ### Key Features <a name="key-features"></a>
-
-> Describe between 1-3 key features of the application.
 
 - **Create, Read, Update and Delete Notes**
 - **Add tags to your notes and display a list of all the available tags**
@@ -118,9 +115,8 @@ To run the project, execute the following command:
 
 > Describe 1 - 3 features you will add to the project.
 
-- [ ] **[new_feature_1]**
-- [ ] **[new_feature_2]**
-- [ ] **[new_feature_3]**
+- [X] **Custom themes**
+- [ ] **Drag and drop**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -138,9 +134,7 @@ Feel free to check the [issues page](../../issues/).
 
 ## ⭐️ Show your support <a name="support"></a>
 
-> Write a message to encourage readers to support your project
-
-If you like this project...
+If you like this project please give it a star and check out some of my other projects!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -148,25 +142,8 @@ If you like this project...
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
-
-I would like to thank...
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- FAQ (optional) -->
-
-## ❓ FAQ (OPTIONAL) <a name="faq"></a>
-
-> Add at least 2 questions new developers would ask when they decide to use your project.
-
-- **[Question_1]**
-
-  - [Answer_1]
-
-- **[Question_2]**
-
-  - [Answer_2]
+I would like to thank my friends, family and beautiful girlfriend for always supporting me.
+I would also like to thank WebDevSimplified and iconos8 for providing assets and resources.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -175,7 +152,5 @@ I would like to thank...
 ## 📝 License <a name="license"></a>
 
 This project is [MIT](./LICENSE) licensed.
-
-_NOTE: we recommend using the [MIT license](https://choosealicense.com/licenses/mit/) - you can set it up quickly by [using templates available on GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository). You can also use [any other license](https://choosealicense.com/licenses/) if you wish._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
