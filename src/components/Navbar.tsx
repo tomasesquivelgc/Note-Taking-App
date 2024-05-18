@@ -23,7 +23,7 @@ export default function Navbar({ themeName, handleThemeChange }: { themeName: Th
           <div style={{ width: '40px' }} />
         )}
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
+        <Typography variant="h3" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
           <Link to=".." style={{ textDecoration: "none", color: "inherit" }}>
             Advanced Note Taker
           </Link>

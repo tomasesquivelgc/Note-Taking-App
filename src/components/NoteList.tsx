@@ -114,9 +114,9 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
             }}
           >
             <CardContent>
-              <h2>
+              <Typography variant="h2">
                 {title}
-              </h2>
+              </Typography>
               <Stack direction={"row"} gap={1} justifyContent={"center"} flexWrap={"wrap"}>
                 {tags.map(tag => {
                   return <Chip color="primary" key={tag.id} label={tag.label} />

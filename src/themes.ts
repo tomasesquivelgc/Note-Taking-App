@@ -6,6 +6,14 @@ const customTypography = {
     fontSize: 50,
     fontWeight: 500,
   },
+  h2: {
+    fontSize: 30.9,
+    fontWeigth: 309,
+  },
+  h3: {
+    fontSize: 19,
+    fontWeight: 118,
+  },
 };
 
 
