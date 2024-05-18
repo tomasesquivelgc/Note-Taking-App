@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import { Autocomplete, Box, Button, Stack, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
@@ -47,72 +47,65 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
     });
     navigate('..');
   };
-
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <TextField
-            defaultValue={title}
-            onChange={(event) => setTitleValue(event.target.value)}
-            label="Title"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            required
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Autocomplete
-            defaultValue={tags} 
-            multiple
-            freeSolo
-            id="note-tags"
-            options={availableTags.map(tag => {
-              return {label: tag.label, id: tag.id}
-            })}
-            onChange={(_, value) => {
-              setSelectedTags(value.map(generateTagWithId))
-            }}
+    <Box component="form" onSubmit={handleSubmit} sx={{flexDirection: "column-reverse", display:"flex"}}>
+      <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
+        <Button
 
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Category"
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                rows={3}
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            defaultValue={markdown}
-            onChange={(event) => setMarkdownValue(event.target.value)}
-            required
-            label="Content"
-            variant="outlined"
-            margin="normal"
-            multiline
-            rows={13}
-            fullWidth  // Ensure the TextField takes the full width
-          />
-        </Grid>
-        <Grid item xs={12} container justifyContent={'flex-end'} gap={2}>
-          <Button
           type="submit"
           variant="contained"
           >
           Submit
-          </Button>
-          <Button onClick={goBack} variant='outlined'>
-            Cancel
-          </Button>
-        </Grid>
-      </Grid>
-      
+        </Button>
+        <Button onClick={goBack} variant='outlined'>
+          Cancel
+        </Button>
+      </Stack>
+      <TextField
+        defaultValue={markdown}
+        onChange={(event) => setMarkdownValue(event.target.value)}
+        required
+        label="Content"
+        variant="outlined"
+        margin="normal"
+        multiline
+        rows={13}
+        fullWidth  // Ensure the TextField takes the full width
+      />
+      <Stack direction={'row'} gap={2}>
+        <TextField
+          sx={{width: '50%'}}
+          defaultValue={title}
+          onChange={(event) => setTitleValue(event.target.value)}
+          label="Title"
+          variant="outlined"
+          margin="normal"
+          required
+        />
+        <Autocomplete
+          sx={{width: '50%'}}
+          defaultValue={tags} 
+          multiple
+          freeSolo
+          id="note-tags"
+          options={availableTags.map(tag => {
+            return {label: tag.label, id: tag.id}
+          })}
+          onChange={(_, value) => {
+            setSelectedTags(value.map(generateTagWithId))
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Category"
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              rows={3}
+              />
+          )}
+        />
+      </Stack>
     </Box>
   );
 }
