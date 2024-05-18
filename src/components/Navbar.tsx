@@ -39,7 +39,8 @@ export default function Navbar({ themeName, handleThemeChange }: { themeName: Th
           <MenuItem value="dark">Dark</MenuItem>
           <MenuItem value="dracula">Dracula</MenuItem>
           <MenuItem value='coffee'>Coffee</MenuItem>
-          <MenuItem value='lemonade'>lemonade</MenuItem>
+          <MenuItem value='lemonade'>Lemonade</MenuItem>
+          <MenuItem value='bumblebee'>Bumblebee</MenuItem>
         </Select>
       </Toolbar>
     </AppBar>

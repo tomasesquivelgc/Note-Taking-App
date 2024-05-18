@@ -107,12 +107,30 @@ const lemonadeTheme = createTheme({
   typography: customTypography
 });
 
+const bumblebeeTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#f8ee00',
+    },
+    secondary: {
+      main: '#f8ee00',
+    },
+    background: {
+      default: '#111a24',
+      paper: '#111a24',
+    },
+  },
+  typography: customTypography
+});
+
 export const themes = {
   light: lightTheme,
   dark: darkTheme,
   dracula: draculaTheme,
   coffee: coffeeTheme,
   lemonade: lemonadeTheme,
+  bumblebee: bumblebeeTheme,
 };
 
 export type ThemeName = keyof typeof themes;
