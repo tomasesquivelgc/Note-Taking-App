@@ -48,7 +48,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{flexDirection: "column-reverse"}}>
       <Grid item xs={12}>
           <TextField
             defaultValue={markdown}
