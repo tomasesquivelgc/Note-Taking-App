@@ -98,23 +98,35 @@ export default function NoteList({ availableTags, notes, updateTag, deleteTag }:
 function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (
     <Grid item xs={12} md={6} lg={4} textAlign={"center"}>
-      <Link to={`${id}`} style={{textDecoration: 'none'}}>
-      <CardActionArea  sx={{ height: "100%" }}>
-        <Card elevation={3}  sx={{ height: "100%", transition: 'background-color 0.3s ease, color 0.3s ease' }}>
-          <CardContent>
-            <h2>
-              {title}
-            </h2>
-            <Stack direction={"row"} gap={1} justifyContent={"center"} flexWrap={"wrap"}>
-              {tags.map(tag => {
-              return <Chip color="primary" key={tag.id} label={tag.label} />
-            })}
-            </Stack>
-          </CardContent>
-        </Card>
-      </CardActionArea>
+      <Link to={`${id}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+        <CardActionArea sx={{ height: "100%" }}>
+          <Card 
+            elevation={3} 
+            sx={{ 
+              height: "100%", 
+              transition: 'background-color 0.3s ease, color 0.3s ease',
+              '&:hover': {
+                backgroundColor: 'action.hover',
+              },
+              '&:active': {
+                backgroundColor: 'action.selected',
+              }
+            }}
+          >
+            <CardContent>
+              <h2>
+                {title}
+              </h2>
+              <Stack direction={"row"} gap={1} justifyContent={"center"} flexWrap={"wrap"}>
+                {tags.map(tag => {
+                  return <Chip color="primary" key={tag.id} label={tag.label} />
+                })}
+              </Stack>
+            </CardContent>
+          </Card>
+        </CardActionArea>
       </Link>
     </Grid>
-  )
+  );
 }
 

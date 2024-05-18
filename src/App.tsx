@@ -1,3 +1,4 @@
+// App.tsx
 import { useLocalStorage } from './hooks/useLocalStorage';
 import NoteList from './components/NoteList';
 import NoteLayout from './components/NoteLayout';
@@ -7,11 +8,9 @@ import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Note } from './components/Note';
 import { EditNote } from './components/EditNote';
-import { PaletteMode } from '@mui/material';
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import Navbar from './components/Navbar';
-
-
+import { themes, ThemeName } from './themes'; // Import your themes and type
 
 export type Note = {
   id: string
@@ -41,52 +40,39 @@ export type Tag = {
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
   const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
-  const [mode, setMode] = useState<PaletteMode>('dark'); // Explicitly type the mode state
+  const [themeName, setThemeName] = useState<ThemeName>('dark');
 
+  const theme = useMemo(() => themes[themeName], [themeName]);
 
-  const theme = useMemo(() => createTheme({
-    typography: {
-      h1: {
-        fontSize: 50,
-        fontWeight: 500,
-      },
-    },
-    palette: {
-      mode: mode,
-    },
-  }), [mode]);
-
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  const handleThemeChange = (newTheme: ThemeName) => {
+    setThemeName(newTheme);
   };
-
-  
 
   const notesWithTags = useMemo(() => {
     return notes.map(note => {
-      return {...note, tags: tags.filter(tag => note.tagIds.includes(tag.id))}
+      return { ...note, tags: tags.filter(tag => note.tagIds.includes(tag.id)) }
     })
-  }, [notes, tags])
+  }, [notes, tags]);
 
-  function onCreateNote({tags, ...data}: NoteData) {
+  function onCreateNote({ tags, ...data }: NoteData) {
     setNotes(prevNotes => {
-      return [...prevNotes, {...data, id: uuidv4(), tagIds: tags.map(tag => tag.id)}]
+      return [...prevNotes, { ...data, id: uuidv4(), tagIds: tags.map(tag => tag.id) }]
     })
   }
 
-  function onUpdateNote(id: string, {tags, ...data}: NoteData){
+  function onUpdateNote(id: string, { tags, ...data }: NoteData) {
     setNotes(prevNotes => {
       return prevNotes.map(note => {
-        if(note.id === id){
-          return {...note, ...data, tagIds: tags.map(tag => tag.id)}
-        }else{
+        if (note.id === id) {
+          return { ...note, ...data, tagIds: tags.map(tag => tag.id) }
+        } else {
           return note;
         }
       })
     })
   }
 
-  function onDeleteNote(id: string){
+  function onDeleteNote(id: string) {
     setNotes(prevNotes => {
       return prevNotes.filter(note => note.id !== id)
     })
@@ -99,9 +85,9 @@ function App() {
   function updateTag(id: string, label: string) {
     setTags(prevTags => {
       return prevTags.map(tag => {
-        if(tag.id === id){
-          return {...tag, label}
-        }else{
+        if (tag.id === id) {
+          return { ...tag, label }
+        } else {
           return tag;
         }
       })
@@ -117,18 +103,18 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Navbar toggleTheme={toggleTheme} mode={mode} />
+      <Navbar themeName={themeName} handleThemeChange={handleThemeChange} />
       <Routes>
         <Route path="/" element={<NoteList notes={notesWithTags} availableTags={tags} updateTag={updateTag} deleteTag={deleteTag} />} />
         <Route path="/new" element={<NewNote onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} />} />
-        <Route path="/:id" element={<NoteLayout notes={notesWithTags}/>}>
+        <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
           <Route index element={<Note onDelete={onDeleteNote} />} />
           <Route path="edit" element={<EditNote onSubmit={onUpdateNote} onAddTag={addTag} availableTags={tags} />} />
         </Route>
-        <Route path="*" element={<Navigate to="/"/>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
   )
 }
 
-export default App
+export default App;
