@@ -93,6 +93,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
                 variant="outlined"
                 margin="normal"
                 fullWidth
+                rows={3}
               />
             )}
           />
