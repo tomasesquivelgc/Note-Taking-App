@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import { Autocomplete, Box, Button, Grid, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
+import { Rowing } from '@mui/icons-material';
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
@@ -49,20 +50,18 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
 
   return (
     <Box>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Stack direction={"row"} gap={2}>
           <TextField
+          sx={{width: '50%'}}
             defaultValue={title}
             onChange={(event) => setTitleValue(event.target.value)}
             label="Title"
             variant="outlined"
-            fullWidth
             margin="normal"
             required
           />
-        </Grid>
-        <Grid item xs={6}>
           <Autocomplete
+          sx={{width: '50%'}}
             defaultValue={tags} 
             multiple
             freeSolo
@@ -84,8 +83,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
               />
             )}
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Stack>
           <TextField
             defaultValue={markdown}
             onChange={(event) => setMarkdownValue(event.target.value)}
@@ -97,8 +95,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
             rows={13}
             fullWidth  // Ensure the TextField takes the full width
           />
-        </Grid>
-        <Grid item xs={12} container justifyContent={'flex-end'} gap={2}>
+        <Stack direction={"row"} justifyContent={'flex-end'} gap={2}>
           <Button
           onClick={handleSubmit}
           variant="contained"
@@ -108,9 +105,8 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
           <Button onClick={goBack} variant='outlined'>
             Cancel
           </Button>
-        </Grid>
-      </Grid>
-      
+        </Stack>
+
     </Box>
   );
 }
