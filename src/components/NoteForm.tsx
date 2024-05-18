@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Autocomplete, Grid, Button, Stack, TextField } from '@mui/material';
-import { useState } from 'react';
+import { Autocomplete, Box, Button, Grid, Stack, TextField } from '@mui/material';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
 
@@ -38,7 +38,8 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
     }
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
     onSubmit({
       title: titleValue,
       markdown: markdownValue,
@@ -48,9 +49,19 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
   };
 
   return (
-    <Grid container spacing={2} sx={{flexDirection: "column-reverse"}}>
-      <Grid item xs={12}>
-          <TextField
+    <Box component="form" onSubmit={handleSubmit} sx={{flexDirection: "column-reverse", display:"flex"}}>
+              <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
+          <Button
+          type="submit"
+          variant="contained"
+          >
+          Submit
+          </Button>
+          <Button onClick={goBack} variant='outlined'>
+            Cancel
+          </Button>
+        </Stack>
+        <TextField
             defaultValue={markdown}
             onChange={(event) => setMarkdownValue(event.target.value)}
             required
@@ -61,21 +72,18 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
             rows={13}
             fullWidth  // Ensure the TextField takes the full width
           />
-      </Grid>
-      <Grid item xs={6}>
-         <TextField
+        <Stack direction={'row'}>
+          <TextField
+            sx={{width: '50%'}}
             defaultValue={title}
             onChange={(event) => setTitleValue(event.target.value)}
             label="Title"
             variant="outlined"
             margin="normal"
             required
-            fullWidth
           />
-      </Grid>
-      <Grid item xs={6}>
           <Autocomplete
-          fullWidth
+            sx={{width: '50%'}}
             defaultValue={tags} 
             multiple
             freeSolo
@@ -86,6 +94,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
             onChange={(_, value) => {
               setSelectedTags(value.map(generateTagWithId))
             }}
+
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -97,22 +106,10 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
               />
             )}
           />
-      </Grid>
-      
-      <Grid item xs={12}>
-        <Stack direction={"row"} justifyContent={'flex-end'} gap={2}>
-          <Button
-          onClick={handleSubmit}
-          variant="contained"
-          >
-          Submit
-          </Button>
-          <Button onClick={goBack} variant='outlined'>
-            Cancel
-          </Button>
         </Stack>
-        </Grid>
+          
 
-    </Grid>
+      
+    </Box>
   );
 }
