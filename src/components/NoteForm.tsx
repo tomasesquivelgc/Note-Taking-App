@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Autocomplete, Box, Button, Stack, TextField } from '@mui/material';
+import { Autocomplete, Grid, Button, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteData, Tag } from '../App';
@@ -48,19 +48,21 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
   };
 
   return (
-    <Box>
-        <Stack direction={"row"} gap={2}>
-          <TextField
-          sx={{width: '50%'}}
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+         <TextField
             defaultValue={title}
             onChange={(event) => setTitleValue(event.target.value)}
             label="Title"
             variant="outlined"
             margin="normal"
             required
+            fullWidth
           />
+      </Grid>
+      <Grid item xs={6}>
           <Autocomplete
-          sx={{width: '50%'}}
+          fullWidth
             defaultValue={tags} 
             multiple
             freeSolo
@@ -71,7 +73,6 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
             onChange={(_, value) => {
               setSelectedTags(value.map(generateTagWithId))
             }}
-
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -82,7 +83,8 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
               />
             )}
           />
-        </Stack>
+      </Grid>
+      <Grid item xs={12}>
           <TextField
             defaultValue={markdown}
             onChange={(event) => setMarkdownValue(event.target.value)}
@@ -94,6 +96,8 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
             rows={13}
             fullWidth  // Ensure the TextField takes the full width
           />
+      </Grid>
+      <Grid item xs={12}>
         <Stack direction={"row"} justifyContent={'flex-end'} gap={2}>
           <Button
           onClick={handleSubmit}
@@ -105,7 +109,8 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdo
             Cancel
           </Button>
         </Stack>
+        </Grid>
 
-    </Box>
+    </Grid>
   );
 }
